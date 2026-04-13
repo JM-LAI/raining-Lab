@@ -132,6 +132,13 @@ def load_curriculum() -> dict:
                     if line.startswith("# "):
                         lesson_title = line[2:].strip()
                         break
+                # strip the first H1 line — the template already renders the title
+                lesson_lines = lesson_md.split("\n")
+                for i, line in enumerate(lesson_lines):
+                    if line.startswith("# "):
+                        lesson_lines.pop(i)
+                        break
+                lesson_md = "\n".join(lesson_lines)
                 lesson_html = markdown.markdown(
                     lesson_md,
                     extensions=["fenced_code", "tables", "toc"],
