@@ -8,7 +8,7 @@ Credits are the currency of the Lightning AI platform. Here's what you need to k
 
 - **Free tier**: 15 credits per month (~22 GPU hours)
 - **Refresh cycle**: On the **1st of each month**
-- **Billing granularity**: Compute charged by the second
+- **Billing granularity**: Compute charged by the second; storage billed by the second once you exceed 10GB ([billing FAQ](https://lightning.ai/docs/overview/faq/billing))
 - **Hidden cost**: Running a GPU studio also spins up a monitoring CPU machine at ~$0.43/hr
 
 ### The Credit Refresh Rule (This Comes Up Constantly)

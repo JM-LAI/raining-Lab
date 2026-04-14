@@ -368,8 +368,11 @@ Common causes:
 ### 8.2 Credits Draining Fast
 
 - Check for **idle studios still running**
+- Check if **autosleep is enabled** — Pro and Teams users can turn it off, which means studios never stop. [Autosleep docs](https://lightning.ai/docs/overview/ai-studio/auto-sleep)
 - Check the **monitoring CPU** cost (~$0.43/hr)
 - Check **machine type** — GPU costs vary significantly
+- Check for **credits auto-reload** — many users don't know they have this enabled in their teamspace or org, and get surprised by charges. Send them this Loom on how to toggle it off: [Auto-reload Loom](https://www.loom.com/share/61f5acb5abdf4bd589705f023e8e8ab2)
+- **Storage charges** — once you exceed 10GB, storage is billed by the second (same for all tiers). [Billing FAQ](https://lightning.ai/docs/overview/faq/billing)
 - Point to [compute costs](https://lightning.ai/pricing#compute)
 
 ### 8.3 "Where Are My Credits?"
@@ -415,6 +418,7 @@ Natalie Rand has recorded walkthroughs for most operations. Bookmark these:
 | Account deletion | [Watch](https://www.loom.com/share/55ebe432315648c2beb72a191e5f732d) |
 | Suspicious activity review | [Watch](https://www.loom.com/share/53097c3de0684a0da81d8dd6c7566c57) |
 | Credit management | *(New Loom coming — old one uses Retool)* |
+| Credits auto-reload toggle | [Watch](https://www.loom.com/share/61f5acb5abdf4bd589705f023e8e8ab2) |
 | Academic pricing setup | *(Coming soon from Natalie Rand)* |
 | Crisp shortcut creation | [Watch](https://www.loom.com/share/1907c8ae2ed4467f93cf66808295962d) |
 | Duplicate tickets handling | [Watch](https://www.loom.com/share/3703e62c697a42399dac44ce2176906e) |
