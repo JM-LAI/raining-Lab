@@ -330,7 +330,7 @@ If the ban reason contains AWS GuardDuty output (DNS requests, detector IDs, etc
 
 Refunds are based on how many credits the user has consumed, not the flat subscription price. Example:
 
-> A user bought a $50 monthly Pro sub (40 credits per month). They're not satisfied and want to cancel and get a refund. They've used 30 credits and only have 10 left. We can only offer a **partial refund of $10** — proportional to the unused credits.
+> A user bought a $50 monthly Pro sub (40 credits per month). They're not satisfied and want to cancel and get a refund. They've used 30 credits and only have 10 left. We can only offer a **partial refund of $10** — proportional to the unused credits. **We also need to remove the remaining 10 credits from their account on ToolJet when we issue the refund.**
 
 ### 7.3 Subscription Cancellation
 
