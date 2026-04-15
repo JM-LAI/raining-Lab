@@ -6,6 +6,35 @@
 
 ---
 
+> **Hey Natalie** — quick summary of what I changed based on your comments so you don't have to hunt through the whole thing. Will remove this block once you've had a look.
+>
+> - **Credits refresh** — changed from "every 30 days" to "1st of each month" as you flagged
+> - **Pro tiers** — added the academic discount, annual, and monthly variants with a link to the pricing page. Left a placeholder for your academic pricing Loom when it's ready
+> - **Teams** — noted it's also offered annually
+> - **Auth provider lock-in** — flagged as unconfirmed since you're checking if GitHub/Google is still mutually exclusive
+> - **Phone verification** — updated to only Google US numbers, not every single one. Makes sense given the volume
+> - **Crisp escalation** — added the "eng help" segment step so we can track how many tickets need engineering
+> - **Duplicate tickets** — added the internal note + "duplicate" + resolve process
+> - **ToolJet first** — added that if someone is banned, that's the cause regardless of what they report
+> - **Refunds** — all go to you now, added the partial refund example with credits, and the bit about removing remaining credits from the account when we refund
+> - **Subscriptions** — added the immediate cancel vs end-of-period distinction, and the payment failure scenario
+> - **HubSpot** — removed all references since we don't use it anymore
+> - **CUDA install section** — removed as you suggested
+> - **Impersonation** — removed entirely per Neil's call. Just says "escalate to Natalie Rand" now
+> - **Kill processes / clearing CUDA memory** — removed as you suggested
+> - **Studios stuck** — added cloud provider to the questions to ask
+> - **Waitlist** — added note that it's been removed as of April 2026
+> - **University students** — added that you can always verify them by domain regardless of country
+> - **Hard bans** — all cases now say "offer data deletion" consistently
+> - **Credit management Loom** — marked as outdated (Retool), placeholder for your new one
+> - **Autosleep** — added as a check for credit drain (Pro/Teams can disable it)
+> - **Credits auto-reload** — added with your Loom for toggling it off
+> - **Storage billing** — added the 10GB threshold, billed by the second
+>
+> Cheers — Joe
+
+---
+
 ## 1. Introduction
 
 This document covers everything a new CX engineer needs to support **PLG (Product-Led Growth) customers** on the Lightning AI platform. PLG customers are self-serve users — Free, Pro, and Teams tier — as opposed to Enterprise customers who are on annual contracts with dedicated Slack channels.
