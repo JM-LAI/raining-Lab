@@ -113,10 +113,32 @@ case "${1:-start}" in
             install_deps
         fi
         
-        # create venv if needed
+        # find the best python (prefer Homebrew over system)
+        PYTHON="python3"
+        if is_mac; then
+            for p in /opt/homebrew/bin/python3 /usr/local/bin/python3; do
+                if [ -x "$p" ]; then
+                    PV=$("$p" -c 'import sys; print(sys.version_info.minor)')
+                    if [ "$PV" -ge 10 ] 2>/dev/null; then
+                        PYTHON="$p"
+                        break
+                    fi
+                fi
+            done
+        fi
+        
+        # create venv if needed (or recreate if wrong python version)
+        if [ -d ".venv" ]; then
+            VENV_PY=$(.venv/bin/python3 -c 'import sys; print(sys.version_info.minor)' 2>/dev/null || echo "0")
+            if [ "$VENV_PY" -lt 10 ] 2>/dev/null; then
+                echo -e "${YELLOW}Existing venv uses Python 3.${VENV_PY} — recreating with 3.10+...${NC}"
+                rm -rf .venv
+            fi
+        fi
+        
         if [ ! -d ".venv" ]; then
             echo "Creating virtual environment..."
-            python3 -m venv .venv
+            "$PYTHON" -m venv .venv
         fi
         
         # activate and install deps

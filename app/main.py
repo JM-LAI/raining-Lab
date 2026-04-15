@@ -1281,7 +1281,7 @@ def _process_safety_labels(html: str) -> str:
     return html
 
 
-def _find_scenario_by_id(scenario_id: str) -> dict | None:
+def _find_scenario_by_id(scenario_id: str):
     """dig through the curriculum to find a scenario by its directory name"""
     tracks = load_curriculum()
     for track_name, track in tracks.items():
