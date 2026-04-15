@@ -479,7 +479,7 @@ async def check_prereqs():
     import subprocess
     import shutil
 
-    def run_check(cmd: list[str]) -> tuple[bool, str]:
+    def run_check(cmd):
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
             return result.returncode == 0, result.stdout.strip()

@@ -30,7 +30,7 @@ class ScenarioEngine:
         """get the ssh command to use (sshv or ssh)"""
         return settings.LAB_SSH_CMD or "sshv"
 
-    def run_remote_command(self, command: str, timeout: int = 120) -> tuple[int, str, str]:
+    def run_remote_command(self, command: str, timeout: int = 120):
         """run a command on the target via ssh, returns (exit_code, stdout, stderr)"""
         cmd_preview = command.split('\n')[0][:80]
         logger.debug(f"SSH exec → {cmd_preview}...")
@@ -65,7 +65,7 @@ class ScenarioEngine:
             logger.error(f"SSH command failed: {e}")
             return 1, "", str(e)
 
-    def run_scenario_script(self, script_path: str) -> tuple[int, str, str]:
+    def run_scenario_script(self, script_path: str):
         """read a local script and pipe it to bash on the target"""
         if not os.path.exists(script_path):
             logger.debug(f"Script not found: {script_path}")
@@ -103,7 +103,7 @@ class ScenarioEngine:
         except Exception as e:
             return 1, "", str(e)
 
-    def setup_scenario(self, scenario_path: str) -> tuple[bool, str]:
+    def setup_scenario(self, scenario_path: str):
         """run setup.sh -- creates the broken state on the target"""
         script = os.path.join(scenario_path, "setup.sh")
         code, stdout, stderr = self.run_scenario_script(script)
@@ -114,13 +114,13 @@ class ScenarioEngine:
             logger.error(f"Scenario setup failed ({code}): {stderr}")
             return False, stderr
 
-    def verify_scenario(self, scenario_path: str) -> tuple[bool, str]:
+    def verify_scenario(self, scenario_path: str):
         """run verify.sh -- did the trainee fix it?"""
         script = os.path.join(scenario_path, "verify.sh")
         code, stdout, stderr = self.run_scenario_script(script)
         return code == 0, stdout or stderr
 
-    def teardown_scenario(self, scenario_path: str) -> tuple[bool, str]:
+    def teardown_scenario(self, scenario_path: str):
         """run teardown.sh -- restore the target to a clean state"""
         script = os.path.join(scenario_path, "teardown.sh")
         code, stdout, stderr = self.run_scenario_script(script)
@@ -131,7 +131,7 @@ class ScenarioEngine:
             logger.error(f"Scenario teardown failed ({code}): {stderr}")
             return False, stderr
 
-    def test_connection(self) -> tuple[bool, str]:
+    def test_connection(self):
         """quick connectivity check using the real ssh/sshv command so 1Password agent works"""
         import subprocess
         from pathlib import Path
