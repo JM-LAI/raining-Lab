@@ -7,7 +7,7 @@ Interactive training for GPU infrastructure support. Hands-on labs with real sce
 One line — works on a fresh macOS or Linux laptop:
 
 ```bash
-git clone https://github.com/VPJoeM/Training-Lab.git && cd Training-Lab && ./start.sh
+git clone git@github.com:VPJoeM/Training-Lab.git && cd Training-Lab && ./start.sh
 ```
 
 Opens at http://localhost:8080 → Setup wizard guides you through configuration.
