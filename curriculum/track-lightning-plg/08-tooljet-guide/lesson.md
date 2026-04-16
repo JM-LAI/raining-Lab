@@ -84,7 +84,9 @@ Natalie Rand has recorded walkthroughs for most ToolJet operations. Reference th
 | Multiple accounts / credits | [Watch](https://www.loom.com/share/618e3941f79c4a61880e68de57a8f648) |
 | Delete an account | [Watch](https://www.loom.com/share/55ebe432315648c2beb72a191e5f732d) |
 | Suspicious activity review | [Watch](https://www.loom.com/share/53097c3de0684a0da81d8dd6c7566c57) |
-| Credit management | [Watch](https://www.loom.com/share/6a237b2cd1b24f8685b581f97438df61) |
+| Credit balances in ToolJet | [Watch](https://www.loom.com/share/831ab84107f04ac29d5c5f8f2db4d3c3) |
+| User wallet vs teamspace vs org | [Watch](https://www.loom.com/share/d8f0e28efaa04b1c97fd641998a9d3cf) |
+| Multiple accounts / which has credits | [Watch](https://www.loom.com/share/618e3941f79c4a61880e68de57a8f648) |
 
 ## ToolJet vs Other Tools
 

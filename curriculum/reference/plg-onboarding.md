@@ -11,7 +11,7 @@
 > - **Credits refresh** — changed from "every 30 days" to "1st of each month" as you flagged
 > - **Pro tiers** — added the academic discount, annual, and monthly variants with a link to the pricing page. Left a placeholder for your academic pricing Loom when it's ready
 > - **Teams** — noted it's also offered annually
-> - **Auth provider lock-in** — flagged as unconfirmed since you're checking if GitHub/Google is still mutually exclusive
+> - **Auth provider lock-in** — ~~flagged as unconfirmed~~ DONE: removed, logins no longer block each other
 > - **Phone verification** — updated to only Google US numbers, not every single one. Makes sense given the volume
 > - **Crisp escalation** — added the "eng help" segment step so we can track how many tickets need engineering
 > - **Duplicate tickets** — added the internal note + "duplicate" + resolve process
@@ -24,9 +24,9 @@
 > - **Kill processes / clearing CUDA memory** — removed as you suggested
 > - **Studios stuck** — added cloud provider to the questions to ask
 > - **Waitlist** — added note that it's been removed as of April 2026
-> - **University students** — added that you can always verify them by domain regardless of country
+> - **University students** — can verify by domain, but NOT in hard-blocked countries (updated)
 > - **Hard bans** — all cases now say "offer data deletion" consistently
-> - **Credit management Loom** — marked as outdated (Retool), placeholder for your new one
+> - **Credit management Loom** — ~~marked as outdated~~ DONE: replaced with new ToolJet Looms + wallet/teamspace/org overview
 > - **Autosleep** — added as a check for credit drain (Pro/Teams can disable it)
 > - **Credits auto-reload** — added with your Loom for toggling it off
 > - **Storage billing** — added the 10GB threshold, billed by the second
@@ -123,13 +123,13 @@ Organization (Org)
 | **Free** | $0 | 15 credits/month (~22 GPU hours), 1 studio at a time |
 | **Pro (Monthly)** | Standard pricing | Priority GPU access, more storage, faster startup |
 | **Pro (Annual)** | Standard pricing (annual) | Same as Pro Monthly, billed annually |
-| **Pro (Academic)** | $9.99/month (annual billing) | Must be logged in with a university/academic email to access this discount |
+| **Pro (Academic)** | $9.99/month (annual billing) | Must use Magic Link auth with a university/academic email to access this discount |
 | **Teams** | $49.99/month (also offered annually) | Multiple members, shared team space, admin controls |
 | **Enterprise** | Custom | Dedicated support, SLAs — handled separately, not in scope here |
 
 See [lightning.ai/pricing](https://lightning.ai/pricing) for current pricing.
 
-> **Note:** Natalie Rand is recording a Loom on how to enable academic pricing for a specific domain — will be linked here when available.
+**Loom:** [How to enable academic pricing for a domain](https://www.loom.com/share/46855740168c447eb017008efcc7cac8)
 
 ### 3.3 How Credits Work
 
@@ -152,14 +152,14 @@ This is the most common source of confusion for users. Memorize these rules:
 | Google OAuth | Second most common |
 | Magic Link | Email-based, passwordless |
 
-> **Possible gotcha:** If a user signs up with GitHub, they may not be able to log in with Google or Magic Link — even if the email is the same. The `auth_provider` field in ToolJet tells you which method they used. *(Natalie Rand is confirming whether this is still the case — treat as likely but not guaranteed.)*
+> **Note:** Users can sign in with any method (GitHub, Google, Magic Link) — these no longer block each other. The `auth_provider` field in ToolJet shows which method they originally signed up with.
 
 ### Platform Verification Checklist
 
 - [ ] Can explain the account hierarchy (Org → Team Space → Studio)
 - [ ] Knows all tiers and their costs (including Pro academic/annual variants)
 - [ ] Can explain the credit refresh rule correctly
-- [ ] Understands the login method lock-in (pending confirmation)
+- [ ] Understands login methods no longer block each other
 
 ---
 
@@ -267,7 +267,9 @@ This is the #1 most common operation. Steps:
 
 - Scroll to "Monthly Free Credits Check" → enter email → see `refresh_date` and `free_credits_enabled`
 
-> **Note:** The credit management Loom currently uses Retool (our old tool). Natalie Rand is recording a new one for ToolJet — will be linked here when available.
+**Loom:** [How to check credit balances in ToolJet](https://www.loom.com/share/831ab84107f04ac29d5c5f8f2db4d3c3)
+
+**Loom:** [User wallet vs teamspace vs org overview](https://www.loom.com/share/d8f0e28efaa04b1c97fd641998a9d3cf)
 
 ### 5.4 Account Deletion
 
@@ -322,7 +324,7 @@ Belarus, Cuba, Iran, North Korea, Russia, Syria, Venezuela, Crimea & Donbas regi
 **Soft Block (verify identity then allow):**
 Vietnam, Philippines, India, Singapore, Korea, Egypt, Pakistan
 
-> **University students:** If you can tell from the email domain that they're a university student (`.edu`, `.ac.uk`, etc.), you can always just verify them regardless of country.
+> **University students:** If you can tell from the email domain that they're a university student (`.edu`, `.ac.uk`, etc.), you can verify them — **but not if they're in a hard-blocked country.** Hard blocks are a legal restriction, no exceptions.
 
 ### 6.4 False Positive Waves
 
@@ -438,9 +440,10 @@ Natalie Rand has recorded walkthroughs for most operations. Bookmark these:
 | Multiple accounts / credits | [Watch](https://www.loom.com/share/618e3941f79c4a61880e68de57a8f648) |
 | Account deletion | [Watch](https://www.loom.com/share/55ebe432315648c2beb72a191e5f732d) |
 | Suspicious activity review | [Watch](https://www.loom.com/share/53097c3de0684a0da81d8dd6c7566c57) |
-| Credit management | *(New Loom coming — old one uses Retool)* |
+| Credit balances in ToolJet | [Watch](https://www.loom.com/share/831ab84107f04ac29d5c5f8f2db4d3c3) |
+| User wallet vs teamspace vs org | [Watch](https://www.loom.com/share/d8f0e28efaa04b1c97fd641998a9d3cf) |
 | Credits auto-reload toggle | [Watch](https://www.loom.com/share/61f5acb5abdf4bd589705f023e8e8ab2) |
-| Academic pricing setup | *(Coming soon from Natalie Rand)* |
+| Academic pricing setup | [Watch](https://www.loom.com/share/46855740168c447eb017008efcc7cac8) |
 | Crisp shortcut creation | [Watch](https://www.loom.com/share/1907c8ae2ed4467f93cf66808295962d) |
 | Duplicate tickets handling | [Watch](https://www.loom.com/share/3703e62c697a42399dac44ce2176906e) |
 | Subscription management | [Watch](https://www.loom.com/share/6934d653f0fd47dfb4ab729fe7c891ef) |
@@ -496,7 +499,7 @@ Before handling live PLG tickets, confirm all of the following:
 - [ ] Can explain the account hierarchy (Org → Team Space → Studio → Drive)
 - [ ] Knows all subscription tiers and costs (including Pro academic/annual)
 - [ ] Can explain the credit refresh rules accurately
-- [ ] Understands the login method lock-in (pending confirmation)
+- [ ] Understands login methods no longer block each other
 
 ### Ticket Handling
 

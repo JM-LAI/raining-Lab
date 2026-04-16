@@ -73,7 +73,7 @@ Users from these countries **can** be manually verified and unbanned. Ask for Li
 - Egypt
 - Pakistan
 
-> **University students:** If you can tell from the email domain that they're a university student (`.edu`, `.ac.uk`, etc.), you can always just verify them regardless of country.
+> **University students:** If you can tell from the email domain that they're a university student (`.edu`, `.ac.uk`, etc.), you can verify them — **but not if they're in a hard-blocked country.** Hard blocks are a legal restriction, no exceptions.
 
 > **When in doubt, verify identity.** It only takes a minute to Google someone's LinkedIn or university, and it prevents us from unfairly locking out legitimate researchers.
 

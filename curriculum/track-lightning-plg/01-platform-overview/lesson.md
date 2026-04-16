@@ -34,7 +34,7 @@ Organization (Org)
 | **Free** | $0 | 15 credits/month (~22 GPU hours), 1 studio at a time |
 | **Pro (Monthly)** | Standard pricing | Priority GPU access, more storage, faster startup |
 | **Pro (Annual)** | Standard pricing (annual) | Same as Pro Monthly, billed annually |
-| **Pro (Academic)** | $9.99/month (annual) | Must be logged in with university/academic email for this discount |
+| **Pro (Academic)** | $9.99/month (annual) | Must use Magic Link auth with university/academic email for this discount |
 | **Teams** | $49.99/month (also annual) | Multiple members, shared team space, admin controls |
 | **Enterprise** | Custom | Dedicated support, SLAs, custom configs |
 
@@ -57,7 +57,7 @@ Users can sign in via:
 - **Google** — OAuth
 - **Magic Link** — Email-based passwordless login
 
-> **Possible gotcha:** If a user signs up with GitHub, they may not be able to log in with Google/Magic Link even if the email matches. The `auth_provider` field in ToolJet tells you which method they used. *(This is being confirmed — treat as likely but not guaranteed.)*
+> **Note:** Users can sign in with any method (GitHub, Google, Magic Link) — these no longer block each other. The `auth_provider` field in ToolJet shows which method they originally signed up with.
 
 ## Platform Tour
 
