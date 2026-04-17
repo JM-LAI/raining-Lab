@@ -68,7 +68,14 @@
 
                 {% if tracks is defined %}
                 {% for tname, t in tracks.items() %}
+                {% set is_wip = 'lightning' not in tname %}
                 <div class="mb-4">
+                    {% if is_wip %}
+                    <div class="px-3 py-1.5 text-xs uppercase tracking-wider text-gray-600 flex items-center gap-2">
+                        {{ t.display_name }}
+                        <span class="px-1.5 py-0.5 bg-yellow-500/10 text-yellow-600 rounded text-[10px] font-medium normal-case">Soon</span>
+                    </div>
+                    {% else %}
                     <a href="/track/{{ tname }}"
                        class="block px-3 py-1.5 text-xs uppercase tracking-wider transition-colors
                               {% if track is defined and track.name == tname %}text-lab-accent{% else %}text-gray-500 hover:text-gray-300{% endif %}">
@@ -82,6 +89,7 @@
                         <span class="truncate">{{ m.title }}</span>
                     </a>
                     {% endfor %}
+                    {% endif %}
                 </div>
                 {% endfor %}
                 {% endif %}
