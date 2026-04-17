@@ -14,7 +14,7 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 PORT="${PORT:-8080}"
-MIN_PY_MINOR=10  # minimum python 3.10
+MIN_PY_MINOR=9  # minimum python 3.9 (we removed all 3.10+ syntax)
 
 is_mac() { [[ "$(uname)" == "Darwin" ]]; }
 is_linux() { [[ "$(uname)" == "Linux" ]]; }
@@ -24,7 +24,7 @@ py_minor() {
     "$1" -c 'import sys; print(sys.version_info.minor)' 2>/dev/null || echo "0"
 }
 
-# find the best python3 binary (3.10+), preferring Homebrew on macOS
+# find the best python3 binary (3.9+), preferring newer versions
 find_python() {
     local candidates=()
     
@@ -33,6 +33,7 @@ find_python() {
         candidates+=(/opt/homebrew/bin/python3.12 /opt/homebrew/bin/python3.11 /opt/homebrew/bin/python3)
         candidates+=(/usr/local/bin/python3.12 /usr/local/bin/python3.11 /usr/local/bin/python3)
     fi
+    # system/generic paths — macOS Xcode tools ship python3 (3.9+)
     candidates+=(python3.12 python3.11 python3)
     
     for p in "${candidates[@]}"; do
@@ -49,23 +50,32 @@ find_python() {
 }
 
 # fresh macOS needs Xcode CLI tools for git, python, etc.
+# this does NOT require admin — any user can install Xcode CLI tools
 ensure_xcode_tools() {
     if is_mac && ! xcode-select -p &>/dev/null; then
-        echo -e "${YELLOW}Installing Xcode Command Line Tools...${NC}"
-        echo -e "${YELLOW}A dialog may pop up — click 'Install' and wait for it to finish.${NC}"
+        echo ""
+        echo -e "${YELLOW}Xcode Command Line Tools are needed (provides Python, git, etc.)${NC}"
+        echo -e "${YELLOW}A popup will appear — click 'Install' and wait for it to finish.${NC}"
+        echo -e "${YELLOW}This can take a few minutes on a fresh Mac.${NC}"
+        echo ""
         xcode-select --install 2>/dev/null || true
+        echo -e "${CYAN}Waiting for Xcode tools to finish installing...${NC}"
         until xcode-select -p &>/dev/null; do
             sleep 5
         done
-        echo -e "${GREEN}Xcode tools installed.${NC}"
+        echo -e "${GREEN}Xcode tools installed!${NC}"
     fi
 }
 
 # make sure Homebrew is available and in PATH
+# returns 1 if brew can't be installed (e.g. no admin rights)
 ensure_brew() {
     if ! command -v brew &>/dev/null; then
         echo -e "${CYAN}Installing Homebrew...${NC}"
-        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        if ! NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>/dev/null; then
+            echo -e "${YELLOW}Homebrew install needs admin rights — skipping (not required for the lab).${NC}"
+            return 1
+        fi
     fi
     # make sure brew is in PATH for this session (Apple Silicon vs Intel)
     if [ -x /opt/homebrew/bin/brew ]; then
@@ -73,19 +83,27 @@ ensure_brew() {
     elif [ -x /usr/local/bin/brew ]; then
         eval "$(/usr/local/bin/brew shellenv)"
     fi
+    return 0
 }
 
-# install Python 3.10+ if we can't find one
+# install Python if we can't find 3.9+
 install_python() {
-    echo -e "${CYAN}Installing Python 3.11...${NC}"
+    echo -e "${CYAN}Python 3.${MIN_PY_MINOR}+ not found — attempting install...${NC}"
     
     if is_mac; then
         ensure_xcode_tools
-        ensure_brew
-        brew install python@3.11
-        # Homebrew doesn't always symlink — add to PATH explicitly
-        export PATH="/opt/homebrew/opt/python@3.11/bin:/usr/local/opt/python@3.11/bin:$PATH"
+        # after Xcode tools, check again — they ship python3
+        if find_python &>/dev/null; then
+            echo -e "${GREEN}Found Python after Xcode tools install.${NC}"
+            return 0
+        fi
+        # only try Homebrew if we can get it
+        if ensure_brew; then
+            brew install python@3.11 2>/dev/null && \
+                export PATH="/opt/homebrew/opt/python@3.11/bin:/usr/local/opt/python@3.11/bin:$PATH" || true
+        fi
     elif is_linux; then
+        echo -e "${YELLOW}Need sudo to install Python — you may be prompted for your password.${NC}"
         if command -v apt-get &>/dev/null; then
             sudo apt-get update -qq
             sudo apt-get install -y -qq python3 python3-venv python3-pip
@@ -97,46 +115,48 @@ install_python() {
     fi
 }
 
-# install all the support tools we can auto-install
+# install nice-to-have support tools (not required for the lab to run)
 install_support_tools() {
     if ! is_mac; then
         return
     fi
     
-    ensure_brew
+    # only try if Homebrew is available — skip silently if not
+    if ! command -v brew &>/dev/null; then
+        if ! ensure_brew; then
+            echo -e "${YELLOW}Skipping optional tool installs (no Homebrew). Lab will still work fine.${NC}"
+            return
+        fi
+    fi
     
     # bash 5+ (macOS ships 3.x which is ancient)
     local bash_major
     bash_major=$(bash -c 'echo ${BASH_VERSINFO[0]}' 2>/dev/null || echo "3")
     if [ "$bash_major" -lt 5 ] 2>/dev/null; then
         echo -e "${CYAN}Upgrading Bash (macOS ships 3.x, we need 5+)...${NC}"
-        brew install bash
-        echo -e "${GREEN}Bash upgraded.${NC}"
+        brew install bash 2>/dev/null && echo -e "${GREEN}Bash upgraded.${NC}" || true
     fi
     
     # 1Password CLI
     if ! command -v op &>/dev/null; then
         echo -e "${CYAN}Installing 1Password CLI...${NC}"
-        brew install --cask 1password-cli && echo -e "${GREEN}1Password CLI installed.${NC}" \
-            || echo -e "${YELLOW}1Password CLI install failed — install manually: brew install --cask 1password-cli${NC}"
+        brew install --cask 1password-cli 2>/dev/null && echo -e "${GREEN}1Password CLI installed.${NC}" \
+            || echo -e "${YELLOW}1Password CLI install skipped — install manually later if needed.${NC}"
     fi
     
     # git (should come with Xcode tools but just in case)
     if ! command -v git &>/dev/null; then
-        echo -e "${CYAN}Installing git...${NC}"
-        brew install git
+        brew install git 2>/dev/null || true
     fi
     
     # jq (used by various toolkit scripts)
     if ! command -v jq &>/dev/null; then
-        echo -e "${CYAN}Installing jq...${NC}"
-        brew install jq
+        brew install jq 2>/dev/null || true
     fi
     
     # curl (macOS has it but some stripped installs don't)
     if ! command -v curl &>/dev/null; then
-        echo -e "${CYAN}Installing curl...${NC}"
-        brew install curl
+        brew install curl 2>/dev/null || true
     fi
 }
 
@@ -234,28 +254,36 @@ case "${1:-start}" in
             fi
         fi
         
-        # step 1: find a usable python, install if needed
+        # step 1: make sure we have basic dev tools on macOS
+        ensure_xcode_tools
+        
+        # step 2: find a usable python, install if needed
         PYTHON=$(find_python) || true
         if [ -z "$PYTHON" ]; then
-            echo -e "${YELLOW}Python 3.${MIN_PY_MINOR}+ not found — installing...${NC}"
             install_python
             PYTHON=$(find_python) || true
         fi
         
         if [ -z "$PYTHON" ]; then
+            echo ""
             echo -e "${RED}Could not find or install Python 3.${MIN_PY_MINOR}+.${NC}"
-            echo "  macOS: brew install python@3.11"
-            echo "  Ubuntu: sudo apt install python3 python3-venv python3-pip"
+            echo ""
+            echo -e "  Ask your IT admin to install Python, or try one of these:"
+            echo -e "  macOS:  ${CYAN}brew install python@3.11${NC}"
+            echo -e "  Ubuntu: ${CYAN}sudo apt install python3 python3-venv python3-pip${NC}"
+            echo ""
+            echo -e "  If you don't have admin rights, ask a teammate to help"
+            echo -e "  or message #customer-support-plg on Slack."
             exit 1
         fi
         
         FOUND_VER=$("$PYTHON" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
         echo -e "${GREEN}Using Python ${FOUND_VER}${NC} (${PYTHON})"
         
-        # install support tools (bash 5+, 1password cli, jq, etc.)
+        # step 3: install optional support tools (bash 5+, 1password cli, jq, etc.)
         install_support_tools
         
-        # step 2: create or fix the venv
+        # step 4: create or fix the venv
         if [ -d ".venv" ]; then
             VENV_MINOR=$(py_minor .venv/bin/python3)
             if [ "$VENV_MINOR" -lt "$MIN_PY_MINOR" ] 2>/dev/null; then
@@ -276,7 +304,7 @@ case "${1:-start}" in
             }
         fi
         
-        # step 3: activate and install packages
+        # step 5: activate and install packages
         source .venv/bin/activate
         
         if [ ! -f ".venv/.installed" ]; then
@@ -286,26 +314,26 @@ case "${1:-start}" in
             touch .venv/.installed
         fi
         
-        # step 4: prep data directory
+        # step 6: prep data directory
         mkdir -p data
         
-        # step 5: check if port is free
+        # step 7: check if port is free
         check_port
         
-        # step 6: check if somehow already running after kill
+        # step 8: check if somehow already running after kill
         if curl -sf "http://localhost:${PORT}/health" &>/dev/null 2>&1; then
             echo -e "${GREEN}Already running at http://localhost:${PORT}${NC}"
             open "http://localhost:${PORT}" 2>/dev/null || xdg-open "http://localhost:${PORT}" 2>/dev/null || true
             exit 0
         fi
         
-        # step 7: start server
+        # step 9: start server
         echo "Starting server on port ${PORT}..."
         uvicorn app.main:app --host 0.0.0.0 --port "$PORT" &
         SERVER_PID=$!
         echo $SERVER_PID > .server.pid
         
-        # step 8: wait for startup
+        # step 10: wait for startup
         for i in {1..30}; do
             if curl -sf "http://localhost:${PORT}/health" &>/dev/null; then
                 break
@@ -318,7 +346,7 @@ case "${1:-start}" in
         echo ""
         echo "Stop with: Ctrl+C or ./start.sh stop"
         
-        # step 9: open browser
+        # step 11: open browser
         open "http://localhost:${PORT}" 2>/dev/null || xdg-open "http://localhost:${PORT}" 2>/dev/null || true
         
         # keep running in foreground so ctrl-c works
