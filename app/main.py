@@ -1287,6 +1287,10 @@ def _embed_loom_videos(html: str) -> str:
             f'frameborder="0" allowfullscreen '
             f'style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;">'
             f'</iframe></div>'
+            f'<p style="margin-top:0.25rem;font-size:0.75rem;color:#6b7280;">'
+            f'Video not loading? Make sure you\'re logged into your Lightning AI account in this browser. '
+            f'<a href="https://www.loom.com/share/{video_id}" target="_blank" '
+            f'style="color:#8B5CF6;text-decoration:underline;">Open on Loom</a></p>'
         )
     # replace <a> tags linking to loom share URLs
     html = _re.sub(
