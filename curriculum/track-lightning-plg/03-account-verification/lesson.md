@@ -35,6 +35,14 @@ Open [ToolJet](https://tooljet.lightning.ai/applications/7b6a09f5-f91a-44a2-9e28
 
 > **Support code for phone verification: 09332104** — you'll see this in certain system messages.
 
+**Watch: Phone verification walkthrough**
+
+https://www.loom.com/share/60cdbe172584497daa111a60ab8ab317
+
+**Watch: When the email doesn't match ToolJet records**
+
+https://www.loom.com/share/e118b455a7dc4317b407b072f43b980f
+
 ## Login Issues
 
 ### Common Causes
@@ -62,6 +70,10 @@ Open [ToolJet](https://tooljet.lightning.ai/applications/7b6a09f5-f91a-44a2-9e28
 
 Some university domains don't follow the standard `.edu` format (e.g., `.ac.uk`, `.edu.au`). Our ban rules flag these automatically. **It's completely fine to verify students from any legitimate university** — just Google the domain to confirm it's real.
 
+**Watch: Identity verification for banned users**
+
+https://www.loom.com/share/bf66503cb7904768a0ef0f3ab65154ce
+
 ## Account Deletion
 
 When a user wants their account deleted:
@@ -72,3 +84,7 @@ When a user wants their account deleted:
 4. On ToolJet, click **"Permanently delete user"** (top right corner)
 
 > **This is completely irreversible.** Double-check before clicking.
+
+**Watch: Account deletion walkthrough**
+
+https://www.loom.com/share/55ebe432315648c2beb72a191e5f732d

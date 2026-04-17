@@ -38,6 +38,14 @@ If the user doesn't initially provide a studio name, ask for it. This saves ever
 ### Creating Shortcuts
 If you encounter an issue that doesn't have an existing shortcut (canned response), create one so we can track it.
 
+**Watch: How to create Crisp shortcuts**
+
+https://www.loom.com/share/1907c8ae2ed4467f93cf66808295962d
+
+**Watch: Handling duplicate tickets**
+
+https://www.loom.com/share/3703e62c697a42399dac44ce2176906e
+
 ## Most Used Message Shortcuts
 
 These are the pre-built responses in Crisp. Use them — they're consistent and save time.

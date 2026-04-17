@@ -39,6 +39,14 @@ DNSRequestAction:{Domain:thekuhlodyssey.com Protocol:UDP Blocked:false...}
 
 **Don't try to interpret these yourself.** Send the full error to an engineer in #customer-support-plg and let them determine if it's nefarious.
 
+**Watch: Suspicious activity review**
+
+https://www.loom.com/share/53097c3de0684a0da81d8dd6c7566c57
+
+**Watch: Identity verification for banned users**
+
+https://www.loom.com/share/bf66503cb7904768a0ef0f3ab65154ce
+
 ## Country Restrictions
 
 ### Hard Block — Sanctioned Countries
