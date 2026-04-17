@@ -152,6 +152,21 @@ case "${1:-start}" in
         echo -e "${CYAN}${BOLD}GPU Support Training Lab${NC}"
         echo ""
         
+        # step 0: pull latest changes if this is a git repo
+        if [ -d ".git" ]; then
+            echo -e "${CYAN}Checking for updates...${NC}"
+            if git pull --quiet 2>/dev/null; then
+                echo -e "${GREEN}Up to date.${NC}"
+            else
+                echo -e "${YELLOW}Could not check for updates (offline?) — using local version.${NC}"
+            fi
+            # if requirements changed, force reinstall
+            if git diff HEAD@{1} --name-only 2>/dev/null | grep -q "requirements.txt"; then
+                rm -f .venv/.installed
+                echo -e "${YELLOW}Dependencies changed — will reinstall.${NC}"
+            fi
+        fi
+        
         # step 1: find a usable python, install if needed
         PYTHON=$(find_python) || true
         if [ -z "$PYTHON" ]; then
@@ -270,8 +285,43 @@ case "${1:-start}" in
         fi
         ;;
         
+    alias)
+        ALIAS_NAME="${2:-lab}"
+        SHELL_RC="$HOME/.zshrc"
+        [[ "$SHELL" != *"zsh"* ]] && SHELL_RC="$HOME/.bashrc"
+        
+        # backup
+        cp "$SHELL_RC" "${SHELL_RC}.backup.$(date +%s)" 2>/dev/null
+        
+        # remove old alias if exists
+        grep -v "alias ${ALIAS_NAME}=.*Training-Lab" "$SHELL_RC" > "${SHELL_RC}.tmp" 2>/dev/null && mv "${SHELL_RC}.tmp" "$SHELL_RC"
+        grep -v "# Training Lab" "$SHELL_RC" > "${SHELL_RC}.tmp" 2>/dev/null && mv "${SHELL_RC}.tmp" "$SHELL_RC"
+        
+        echo "" >> "$SHELL_RC"
+        echo "# Training Lab — auto-updates and restarts" >> "$SHELL_RC"
+        echo "alias ${ALIAS_NAME}='cd ${SCRIPT_DIR} && ./start.sh'" >> "$SHELL_RC"
+        
+        echo -e "${GREEN}Alias '${ALIAS_NAME}' added to $(basename "$SHELL_RC")${NC}"
+        echo ""
+        echo "  Run: source ${SHELL_RC}"
+        echo "  Then just type: ${ALIAS_NAME}"
+        echo ""
+        echo "  It will auto-pull the latest changes and start the lab."
+        
+        if command -v pbcopy &>/dev/null; then
+            echo -n "source ${SHELL_RC}" | pbcopy
+            echo -e "  ${GREEN}(source command copied to clipboard)${NC}"
+        fi
+        ;;
+        
     *)
-        echo "Usage: ./start.sh [start|stop|reset|status]"
+        echo "Usage: ./start.sh [start|stop|reset|status|alias]"
+        echo ""
+        echo "  start   Start the lab (default)"
+        echo "  stop    Stop the lab"
+        echo "  reset   Wipe progress and restart"
+        echo "  status  Check if running"
+        echo "  alias   Create a shell alias (e.g. ./start.sh alias lab)"
         exit 1
         ;;
 esac

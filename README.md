@@ -1,8 +1,8 @@
-# GPU Support Training Lab
+# Lightning Support Training Lab
 
-Interactive training for GPU infrastructure support. Hands-on labs with real scenarios.
+Interactive training platform for Lightning AI support. Lessons, video walkthroughs, and knowledge-check quizzes.
 
-## Quick Start
+## First Time Setup
 
 One line — works on a fresh macOS or Linux laptop:
 
@@ -10,92 +10,114 @@ One line — works on a fresh macOS or Linux laptop:
 git clone git@github.com:VPJoeM/Training-Lab.git && cd Training-Lab && ./start.sh
 ```
 
-Opens at http://localhost:8080 → Setup wizard guides you through configuration.
+The script handles everything automatically: Xcode CLI tools, Homebrew, Python, 1Password CLI, and all dependencies. Just follow any prompts that pop up.
 
-> **Fresh Mac?** The script handles everything: Xcode CLI tools, Homebrew, Python, virtual environment, and pip packages. Just run the one-liner and follow any prompts. You might need to click "Install" on an Xcode dialog and enter your password for Homebrew.
+Opens at http://localhost:8080 — pick **Lightning Platform (PLG)** to start.
 
-## Prerequisites
+> **Fresh Mac?** You might need to click "Install" on an Xcode dialog and enter your password for Homebrew. That's it.
 
-### Auto-Installed
-The start script automatically installs these if missing:
-- **Xcode Command Line Tools** (macOS — needed for git and compilers)
-- **Python 3.10+** via Homebrew (macOS) or apt/dnf (Linux)
-- **Homebrew** (macOS only, if needed for Python)
+## Beta Testers
 
-### Required
-- **Target server** - an H100 node you can SSH into for server-based labs
+### Getting Updates
 
-### For Full Functionality
-- **Support-Tooling repo** - clone to `~/Github/Support-Tooling`
-- **sshv configured** - run `connect-to-sshv-portal.sh` to set up your token
-- **Tailscale connected** - required for internal tools (VOLT, Redfish, etc.)
-- **1Password CLI** - for VOLT API key storage (Node Toolkit uses this)
+Every time you start the lab, it automatically pulls the latest changes. Just run:
 
-## Setup Flow
+```bash
+cd Training-Lab && ./start.sh
+```
 
-1. Run `./start.sh` - installs dependencies, starts server
-2. Browser opens to setup wizard
-3. Enter your target server details:
-   - **Host**: IP or hostname of an H100 node (e.g., `10.0.1.50`)
-   - **Port**: SSH port (usually `4747` for sshv)
-   - **User**: SSH username (usually `vpsupport`)
-4. Test connection
-5. Start training!
+Or if the lab is already running, `Ctrl+C` to stop it first, then run the above.
 
-## Lab Types
+### Quick Alias (Recommended)
 
-| Type | What Happens |
-|------|--------------|
-| **Node labs** | SSH to target server, run commands there |
-| **Laptop labs** | Run scripts locally (Node Toolkit, Redfish) |
-| **Web labs** | Browser-based (VOLT, Metabase) |
+Set up a shortcut so you can just type `lab` from anywhere:
+
+```bash
+cd Training-Lab && ./start.sh alias lab
+```
+
+Then open a new terminal (or run `source ~/.zshrc`) and just type:
+
+```bash
+lab
+```
+
+That's it — kills any old instance, pulls the latest, and starts fresh with a browser window.
+
+### Resetting Progress
+
+Want to start the quizzes from scratch?
+
+```bash
+cd Training-Lab && ./start.sh reset
+```
 
 ## What's Included
 
-| Module | Labs |
-|--------|------|
-| Environment Overview | Explore VOLT |
-| Log Collection | XID 79 Diagnosis, Node Toolkit |
-| GPU Diagnostics | Manual DCGM, DCGM via Toolkit |
-| InfiniBand | Down Port, Degraded Speed, PCIe Width |
-| Driver Management | Version Mismatch, Fabric Manager |
-| iDRAC & Redfish | Health Check, Collect TSR |
-| Thermal Diagnostics | Read CSV, Identify Hot GPU |
-| VPOD Admin | Lookup Customer, Check Balance |
+### Lightning Platform (PLG) — Active
+
+| Module | Content |
+|--------|---------|
+| Platform Overview | Account hierarchy, tiers, credits, login methods |
+| Crisp Workflow | Ticket routing, shortcuts, escalation process |
+| Account Verification | Phone verification, login issues, ban reasons |
+| Credit Management | How credits work, ToolJet operations |
+| Banned Users | Ban types, country lists, when to unban |
+| Subscription & Billing | Stripe ops, refunds, cancellations |
+| Common Issues | Studios stuck, credit drain, data recovery |
+| ToolJet Guide | Full ToolJet walkthrough with embedded video demos |
+
+Each module has a lesson, embedded Loom video walkthroughs, and a 5-question knowledge check quiz (one question at a time, 3 tries per question, instant feedback).
+
+### Bare Metal H100 — Coming Soon
+
+Infrastructure training with hands-on labs. Currently in development.
 
 ## Commands
 
 ```bash
-./start.sh          # Start the lab
+./start.sh          # Start the lab (auto-updates first)
 ./start.sh stop     # Stop the lab
 ./start.sh reset    # Wipe progress and restart
 ./start.sh status   # Check if running
+./start.sh alias    # Create a shell alias (e.g. ./start.sh alias lab)
 ```
+
+## Prerequisites
+
+### Auto-Installed
+
+The start script automatically installs these if missing:
+
+- Xcode Command Line Tools (macOS)
+- Homebrew (macOS)
+- Python 3.10+
+- Bash 5+
+- 1Password CLI
+- jq
+
+### For Full Functionality (Bare Metal track only)
+
+- Target H100 server with SSH access
+- Support-Tooling repo cloned locally
+- sshv configured
+- Tailscale connected
 
 ## Troubleshooting
 
-**"Connection failed" on setup**
-- Check you can SSH manually: `sshv -p 22 vpsupport@<host>`
-- Make sure Tailscale is connected
-- Verify your sshv token is set up
+**Script fails on first run**
+- Make sure you have internet access
+- On macOS: click "Install" if an Xcode dialog pops up
+- Enter your password when Homebrew asks for it
 
-**Labs not working**
-- Server-based labs need a working SSH connection
-- Laptop-based labs need Support-Tooling cloned locally
-- Web-based labs just need browser access to internal tools
+**Port already in use**
+- The script auto-kills anything on port 8080, but if it still fails: `lsof -ti :8080 | xargs kill -9`
 
 **Reset everything**
 ```bash
-./start.sh reset
+cd Training-Lab && rm -rf .venv && ./start.sh
 ```
 
-## For Developers
-
-```bash
-# run with auto-reload
-source .venv/bin/activate
-uvicorn app.main:app --reload --port 8080
-
-# run tests
-./run_tests.sh
-```
+**Wrong Python version**
+- The script auto-detects and uses Homebrew Python over the system one
+- If it's still wrong: `rm -rf .venv && ./start.sh`
