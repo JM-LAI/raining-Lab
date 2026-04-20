@@ -123,3 +123,12 @@
     - "The monitoring system is broken"
   correct: 1
   explanation: "Multiple nodes in the same rack failing together points to rack-level infrastructure. Flag this pattern to infra-ops — it's more urgent than individual node issues."
+
+- question: "Infra-ops replaced a GPU after a thermal throttle ticket. What should you request before closing the ticket and returning the node to the customer?"
+  options:
+    - "Just confirm the node is pingable and close it"
+    - "Ask the customer to test their workload"
+    - "Request infra-ops run DCGMI diagnostics level 3 or above to validate the replacement GPU"
+    - "Run nvidia-smi to confirm the GPU shows up"
+  correct: 2
+  explanation: "After a GPU replacement, nvidia-smi only confirms the GPU is visible — not that it's healthy. DCGMI r3+ runs stress tests on compute, memory, and PCIe to validate the new hardware before returning it to the customer."
