@@ -23,7 +23,7 @@ Organization (Org)
 
 - **Organization** — Top-level entity. Enterprise customers get their own org. PLG users share the default org.
 - **Team Space** — Where work happens. Each team space has its own credit balance, budget settings, and member permissions. A user can belong to multiple team spaces.
-- **Studio** — A cloud dev environment. Can run on CPU (free) or GPU (paid). Includes VS Code, terminal, file system, and pre-installed ML frameworks.
+- **Studio** — A cloud dev environment. Includes VS Code, terminal, file system, and pre-installed ML frameworks. The default 4xCPU machine is free for a limited time (see below). Switching to a GPU makes the studio paid.
 - **Drive** — Persistent storage attached to a team space. Data lives here between studio sessions.
 - **Deployments** — Production endpoints for serving models.
 
@@ -31,7 +31,7 @@ Organization (Org)
 
 | Tier | Cost | What They Get |
 |------|------|--------------|
-| **Free** | $0 | 15 credits/month (~22 GPU hours), 1 studio at a time |
+| **Free** | $0 | 15 credits/month (~80 GPU hours), 1 studio at a time |
 | **Pro (Monthly)** | Standard pricing | Priority GPU access, more storage, faster startup |
 | **Pro (Annual)** | Standard pricing (annual) | Same as Pro Monthly, billed annually |
 | **Pro (Academic)** | $9.99/month (annual) | Must use Magic Link auth with university/academic email for this discount |
@@ -46,11 +46,24 @@ https://www.loom.com/share/46855740168c447eb017008efcc7cac8
 
 > **Important:** Credits do not roll over. If a user only uses 4 of their 15 free credits, they'll get 4 back next cycle — not 15. Credits refresh on the 1st of each month.
 
+### Free CPU Studios
+
+The default 4xCPU machine has a free window before it starts consuming credits:
+
+| Tier | Free CPU Time | After That |
+|------|--------------|-----------|
+| **Free** | 4 hours | Starts consuming credits at the standard rate |
+| **Pro / Teams** | 24 hours | Starts consuming credits at the standard rate |
+
+- If you switch from CPU to GPU, the studio becomes paid immediately
+- A free studio shows a **"FREE" pill** next to it in the UI. If the pill isn't there, it's not free — users sometimes think they're on the free studio when they're actually not
+- Switching to a different CPU tier (like Data Prep or 96-core) is also paid
+
 ### How Credits Work
 
-- 1 credit ≈ 1.5 GPU hours (varies by machine type)
+- 15 credits ≈ 80 GPU hours (varies by machine type). The landing page says "80 GPU hours" — users sometimes confuse this with 80 credits.
 - Compute is billed **by the second**
-- Running a GPU studio also spins up a monitoring CPU machine at ~$0.43/hr
+- Prices are as shown in the CPU/GPU machine selection menu when you create a studio — see [lightning.ai/pricing](https://lightning.ai/pricing) for current rates
 - Free credits only replenish for the account that spent them — transferring credits to another user's teamspace and having them spend it won't trigger a refill
 
 ### Login Methods

@@ -14,16 +14,16 @@
     - "15 credits"
     - "25 credits"
   correct: 2
-  explanation: "Free tier users get 15 credits per month (roughly 22 GPU hours), refreshing every 30 days."
+  explanation: "Free tier users get 15 credits per month (roughly 80 GPU hours), refreshing on the 1st of each month."
 
 - question: "A user signed up with GitHub. Can they log in with Google using the same email?"
   options:
-    - "Yes, any login method works with the same email"
+    - "Yes — login methods no longer block each other"
     - "No, they must use the original auth provider"
     - "Only if they link their Google account first"
     - "Yes, but only on Pro tier"
-  correct: 1
-  explanation: "Users are locked to the auth provider they signed up with. Check the auth_provider field in ToolJet."
+  correct: 0
+  explanation: "Login methods no longer block each other. Users can sign in with GitHub, Google, or Magic Link regardless of how they originally signed up. The auth_provider field in ToolJet shows which method they used first."
 
 - question: "If a user only uses 4 of their 15 free credits, how many credits do they receive next cycle?"
   options:

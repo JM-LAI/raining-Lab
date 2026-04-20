@@ -25,14 +25,14 @@
   correct: 1
   explanation: "Self-serve cancellation only stops renewal at the end of the billing period. For immediate cancellation, we have to do it on Stripe."
 
-- question: "What hidden cost often surprises users about running GPU studios?"
+- question: "A user on the free tier wants to disable autosleep. What do you tell them?"
   options:
-    - "Network bandwidth charges"
-    - "A monitoring CPU machine (~$0.43/hr) runs alongside the GPU"
-    - "Studio startup fees"
-    - "Data storage per-GB charges"
+    - "They can toggle it off in studio settings"
+    - "Only Pro and Teams users can disable autosleep — free tier has it permanently on"
+    - "They need to contact engineering"
+    - "Autosleep doesn't exist on the free tier"
   correct: 1
-  explanation: "Every GPU job also spins up a monitoring CPU machine at ~$0.43/hr. Users often don't realize this additional cost."
+  explanation: "Autosleep can only be disabled on Pro tier or higher. Free tier users have autosleep enabled by default and cannot modify it."
 
 - question: "Who should you escalate refund requests to?"
   options:

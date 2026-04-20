@@ -34,11 +34,11 @@
   correct: 0
   explanation: "Credits refresh on the 1st of each month."
 
-- question: "A user's credits are draining faster than expected. Which hidden cost should you mention?"
+- question: "A user's credits are draining faster than expected. What's the most common cause?"
   options:
     - "Network egress fees"
     - "Storage charges for the Drive"
-    - "The monitoring CPU machine running alongside the GPU (~$0.43/hr)"
+    - "Idle studios left running with autosleep disabled"
     - "API rate limiting penalties"
   correct: 2
-  explanation: "Running a GPU studio automatically spins up a monitoring CPU machine at ~$0.43/hr. Users often don't realize this."
+  explanation: "Pro and Teams users can disable autosleep, which means studios keep running and burning credits even when idle. Free tier users can't disable autosleep."

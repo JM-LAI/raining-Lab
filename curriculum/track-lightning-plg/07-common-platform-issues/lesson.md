@@ -27,13 +27,13 @@ If a studio is stuck saving or loading for an extended period, escalate to engin
 Users frequently don't understand why their credits are disappearing:
 
 - **Idle studios still running** — Compute charges even when they're not coding
-- **Autosleep disabled** — Pro and Teams users can turn off autosleep, which means studios never stop running. Check if it's enabled. [Autosleep docs](https://lightning.ai/docs/overview/ai-studio/auto-sleep)
+- **Autosleep disabled** — Only Pro and Teams users can disable autosleep. Free tier users have autosleep on by default and **cannot** turn it off. If a Pro/Teams user has autosleep off, their studios never stop running — check if it's enabled. [Autosleep docs](https://lightning.ai/docs/overview/ai-studio/auto-sleep)
 - **Credits auto-reload enabled** — Many users don't know they have this enabled in their teamspace or org and get surprised by charges. Show them how to toggle it off:
 
 https://www.loom.com/share/61f5acb5abdf4bd589705f023e8e8ab2
 
 - **Machine switching** — Switching from CPU to GPU or between GPU types can trigger unexpected charges
-- **The monitoring CPU** — ~$0.43/hr runs alongside every GPU job
+- **Machine costs** — Prices are as shown in the CPU/GPU machine selection menu (see [pricing](https://lightning.ai/pricing))
 - **Storage over 10GB** — Once you exceed 10GB, storage is billed by the second (same for all tiers). [Billing FAQ](https://lightning.ai/docs/overview/faq/billing)
 - **Transferring to another cloud** — Costs credits that users didn't expect
 
@@ -50,22 +50,28 @@ When a user loses data:
 - Switching machine types can sometimes cause data loss if files weren't saved to the Drive
 - [Drive documentation](https://lightning.ai/docs/overview/drive)
 
-### Data Recovery (L2 — Engineering Required)
+### Data Recovery (Engineering Required)
 
-If a user has genuinely lost data and it needs recovery:
+If a user says they lost data and needs recovery, **post to `#customer-support-plg`** and tag the **@oncall** group with:
 
-1. Confirm their AWS CLI setup: `aws sts get-caller-identity`
-2. Get deletion markers from S3
-3. Create recovery batches
-4. Execute the recovery
+- Username
+- Free user or paid user (if paid, check their total spend on their Stripe customer profile)
+- Teamspace or studio name they lost
 
-> This is an L2 operation. Only escalate if the user has paid us at least $100 (check Stripe). Otherwise, guide them to create a new account and duplicate studios to transfer work.
+Don't try to run recovery commands yourself — engineering handles this.
 
 [Loom: Data recovery walkthrough](https://www.loom.com/share/74641ae78d324ae1968c1ebb44e2e999)
 
 ## Account Impersonation
 
 If you need to see the platform as a specific user, **escalate to Natalie Rand**. Account impersonation is restricted and not available to the wider team.
+
+Common reasons someone might need impersonation:
+
+- User doesn't understand why they're being charged for storage — Natalie logs in as them to check storage costs and transaction page
+- User says they can't find a specific studio — often they're looking in the wrong teamspace or org
+
+If you think peeking into an account would solve the issue, let Natalie know and she'll take a look.
 
 ## Working with GitHub in Studios
 

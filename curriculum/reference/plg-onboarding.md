@@ -105,7 +105,7 @@ Organization (Org)
 
 | Tier | Cost | Key Details |
 |------|------|------------|
-| **Free** | $0 | 15 credits/month (~22 GPU hours), 1 studio at a time |
+| **Free** | $0 | 15 credits/month (~80 GPU hours), 1 studio at a time |
 | **Pro (Monthly)** | Standard pricing | Priority GPU access, more storage, faster startup |
 | **Pro (Annual)** | Standard pricing (annual) | Same as Pro Monthly, billed annually |
 | **Pro (Academic)** | $9.99/month (annual billing) | Must use Magic Link auth with a university/academic email to access this discount |
@@ -125,7 +125,7 @@ This is the most common source of confusion for users. Memorize these rules:
 3. **Only consumed credits are replenished** — use 4, get 4 back (not 15)
 4. Credits **do not** roll over or accumulate
 5. Compute is billed **by the second**
-6. Running a GPU studio also starts a monitoring CPU at **~$0.43/hr**
+6. Prices are as shown in the CPU/GPU machine selection menu — see [pricing](https://lightning.ai/pricing)
 7. Free credits go to **one account per phone number** only
 8. If Account A gives credits to Account B and B spends them, **A's credits won't refresh**
 
@@ -385,7 +385,7 @@ Common causes:
 
 - Check for **idle studios still running**
 - Check if **autosleep is enabled** — Pro and Teams users can turn it off, which means studios never stop. [Autosleep docs](https://lightning.ai/docs/overview/ai-studio/auto-sleep)
-- Check the **monitoring CPU** cost (~$0.43/hr)
+- Check machine costs on the [pricing page](https://lightning.ai/pricing)
 - Check **machine type** — GPU costs vary significantly
 - Check for **credits auto-reload** — many users don't know they have this enabled in their teamspace or org, and get surprised by charges. Send them this Loom on how to toggle it off: [Auto-reload Loom](https://www.loom.com/share/61f5acb5abdf4bd589705f023e8e8ab2)
 - **Storage charges** — once you exceed 10GB, storage is billed by the second (same for all tiers). [Billing FAQ](https://lightning.ai/docs/overview/faq/billing)

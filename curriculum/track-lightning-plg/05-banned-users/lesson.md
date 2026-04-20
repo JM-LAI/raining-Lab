@@ -26,7 +26,7 @@ Navigate to [ToolJet](https://tooljet.lightning.ai/applications/7b6a09f5-f91a-44
 | Crypto mining detected | Use `#suspicious-activity`. Offer data deletion only. |
 | Pornography / inappropriate content | Use `#suspicious-activity`. Offer data deletion only. |
 | Torrenting | Use `#suspicious-activity`. Offer data deletion only. |
-| Sanctioned country (hard block) | Cannot unban. Explain it's a legal restriction. |
+| Sanctioned country (hard block) | Cannot unban. Use the `hard-ban` Crisp shortcut (see below). |
 
 ### Complex Bans
 
@@ -51,7 +51,15 @@ https://www.loom.com/share/bf66503cb7904768a0ef0f3ab65154ce
 
 ### Hard Block — Sanctioned Countries
 
-These users **cannot** be unbanned. It's a legal/investor requirement:
+These users **cannot** be unbanned. It's a legal/investor requirement.
+
+**Response template** (also saved as Crisp shortcut `hard-ban`):
+
+> "Apologies, but Lightning hasn't expanded to your area yet. Please keep an eye on our social media as we grow!"
+
+> **Current trend:** We're getting a massive influx of users from Russia asking for phone verification. Use the `hard-ban` response for all of them.
+
+**Hard-blocked countries:**
 
 - Belarus
 - Cuba
