@@ -88,6 +88,15 @@
   correct: 2
   explanation: "Quality escalations save infra-ops time. Include everything: node details, timeframe, errors, what you already checked, related tickets, and any confirmed maintenance window."
 
+- question: "You see an 'EMEA->US Handover' ticket in your queue. What is this?"
+  options:
+    - "A customer requesting to move their servers to the US"
+    - "An internal shift note — the region label just tells you which shift left it, pick it up and continue the work"
+    - "A billing transfer between entities"
+    - "Only handle it if you're on the US shift"
+  correct: 1
+  explanation: "Handover tickets are shift-change notes. The region tag just identifies which shift created it — pick up any handover and continue the work."
+
 - question: "You see a ticket: 'SSH Access Suddenly Failing with Permission Denied (Publickey)'. What do you do?"
   options:
     - "Tell the customer to generate new SSH keys"
@@ -96,15 +105,6 @@
     - "Close the ticket — SSH issues are the customer's problem"
   correct: 1
   explanation: "CX diagnoses access issues first. Use sshv to check the node, verify LDAP status and key state before deciding next steps."
-
-- question: "You see an 'EMEA->US Handover' ticket in your queue. What is this?"
-  options:
-    - "A customer requesting to move their servers to the US"
-    - "An internal shift handoff — pick up any work tagged for your region"
-    - "A billing transfer between entities"
-    - "A VPN configuration request"
-  correct: 1
-  explanation: "Handover tickets are shift-change notes between regional teams. Review and pick up anything relevant to your region."
 
 - question: "A customer contacts you saying their GPU performance is degraded. You find no TT or alert tickets in Plain. What's your next step?"
   options:

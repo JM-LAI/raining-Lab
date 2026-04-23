@@ -197,7 +197,7 @@ Sites:
 
 ## Shift Handovers
 
-You'll see tickets like `EMEA->US Handover` and `US->APAC Handover`. These are internal notes between regional shifts — pick up anything tagged for your region and continue the work.
+You'll see tickets like `EMEA->US Handover` and `US->APAC Handover`. The region label just tells you which shift left it — pick up any handover ticket and continue the work regardless of region.
 
 ## The Escalation Checklist
 
