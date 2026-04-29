@@ -19,11 +19,38 @@
 - question: "What is a neo-cloud?"
   options:
     - "A new version of AWS"
-    - "A non-hyperscaler cloud provider that offers GPU compute — like us, Lambda, Nebius"
+    - "A GPU-focused cloud provider that's an alternative to hyperscalers — like us, Lambda, Nebius"
     - "A cloud provider that only serves startups"
     - "An on-premises GPU cluster"
   correct: 1
-  explanation: "Neo-clouds are the alternative to hyperscalers (AWS, GCP, Azure). Our differentiator is the software platform on top of the hardware."
+  explanation: "Neo-clouds are GPU-focused providers built for AI workloads. The hyperscalers (AWS, GCP, Azure) are expensive and weren't purpose-built for AI training."
+
+- question: "What makes Lightning AI different from other neo-clouds like Lambda or CoreWeave?"
+  options:
+    - "We have more GPUs"
+    - "We're cheaper"
+    - "We own both the hardware infrastructure AND the software platform — full stack from GPU to endpoint"
+    - "We only serve enterprise customers"
+  correct: 2
+  explanation: "Most neo-clouds are just GPU rental companies. We own the hardware (Voltage Park) AND the software platform (Lightning AI). That's the 'from GPU to endpoint' moat."
+
+- question: "Why do enterprise customers use a hybrid compute model instead of putting everything on one cloud?"
+  options:
+    - "They can't afford a single provider"
+    - "Different workloads have different needs — hyperscaler for existing infra, neo-cloud for GPU price/performance, on-prem for sensitive data"
+    - "Regulations require using at least three providers"
+    - "Hyperscalers don't offer GPUs"
+  correct: 1
+  explanation: "Enterprise AI uses hybrid compute. Hyperscalers for general infra, neo-clouds like us for GPU-heavy work at better pricing, on-prem for data sovereignty."
+
+- question: "Why did neo-clouds emerge as a market?"
+  options:
+    - "AWS shut down their GPU division"
+    - "Hyperscalers had long GPU waitlists, high prices, and weren't purpose-built for AI training"
+    - "Governments mandated the use of smaller providers"
+    - "Neo-clouds have better marketing"
+  correct: 1
+  explanation: "When AI demand exploded, hyperscalers couldn't keep up — long H100 waitlists, expensive GPU pricing, and too much overhead for pure AI workloads."
 
 - question: "What is the primary GPU server model in our fleet?"
   options:
@@ -33,6 +60,42 @@
     - "Dell PowerEdge R750 with 2x H100 GPUs"
   correct: 1
   explanation: "The Dell PowerEdge XE9680 with 8x H100 SXM GPUs per node is the primary fleet. Newer builds use the XE9780 with B200s."
+
+- question: "What does Lightning AI Studios provide to PLG users?"
+  options:
+    - "Just raw GPU servers with SSH access"
+    - "Cloud dev environments with GPU access, multi-node training, data prep, inference, and app hosting"
+    - "Only model inference APIs"
+    - "Hardware monitoring dashboards"
+  correct: 1
+  explanation: "Studios gives users cloud-based dev environments with GPUs, plus training, data prep (LitData), inference deployment, and app hosting — all self-service."
+
+- question: "A customer asks about getting dedicated GPU nodes with SLAs and a TAM. Which product is this?"
+  options:
+    - "Lightning AI Studios (Free tier)"
+    - "VPOD"
+    - "Reserved Instances"
+    - "Managed Slurm"
+  correct: 2
+  explanation: "Reserved Instances are the enterprise sales product — dedicated nodes, SLAs, TAM onboarding, custom configurations, multi-month contracts."
+
+- question: "Why do customers choose Managed Kubernetes (MK8s) instead of running their own K8s on our GPUs?"
+  options:
+    - "It's cheaper"
+    - "GPU scheduling, driver management, fabric manager, and InfiniBand CNI plugins are painful to manage — we abstract that away"
+    - "K8s can't run on GPUs without our platform"
+    - "Customers are required to use our managed service"
+  correct: 1
+  explanation: "Running K8s on GPU infrastructure requires GPU scheduling, driver management, fabric manager, and IB plugins. MK8s handles all of that so customers focus on workloads."
+
+- question: "How many free credits do Free tier Lightning AI Studio users get per month?"
+  options:
+    - "5 credits"
+    - "10 credits"
+    - "15 credits (~80 GPU hours)"
+    - "25 credits"
+  correct: 2
+  explanation: "Free tier users get 15 credits per month, roughly 80 GPU hours. Credits refresh on the 1st of each month."
 
 - question: "What is happening to VPOD (VP On-Demand)?"
   options:

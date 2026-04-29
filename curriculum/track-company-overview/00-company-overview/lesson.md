@@ -42,33 +42,131 @@ In **December 2025** (announced January 2026), Lightning AI and **Voltage Park**
 
 ## What is a Neo Cloud?
 
-You'll hear this term a lot. A **neo-cloud** is a non-hyperscaler cloud provider that offers GPU compute — companies like us, Lambda, Nebius, Vultr.
+You'll hear this term a lot. Understanding it is key to understanding where we sit in the market.
 
-The big three (AWS, GCP, Azure) are hyperscalers. We're the alternative.
+### The Cloud Landscape
 
-**Our differentiator:** We don't just rent GPUs. We sell a **software-enabled platform** on top of the hardware. That's what gives us higher margins and stickier customers than a pure infrastructure play.
+The GPU cloud market has three tiers:
 
-**Why it matters for enterprise:** Companies consume AI in a hybrid way — some workloads on hyperscalers, some on private cloud, some on-prem. We're the neo-cloud piece of that mix, and our platform makes it easy to move between providers.
+| Tier | Who | Examples | Pros | Cons |
+|------|-----|----------|------|------|
+| **Hyperscalers** | The big three | AWS, GCP, Azure | Massive scale, broad services, enterprise trust | Expensive GPU compute, long waitlists for H100s, lock-in |
+| **Neo-clouds** | GPU-focused providers | **Lightning AI**, Lambda, Nebius, CoreWeave, Vultr | Purpose-built for AI, better GPU pricing, faster access | Smaller ecosystem, less brand recognition |
+| **On-prem** | Customer-owned | Private data centers | Full control, data sovereignty | Massive capex, slow to scale, maintenance burden |
 
-## Products
+**We are a neo-cloud.** But not just any neo-cloud — we're the one with a full software platform on top.
+
+### Why Neo-Clouds Exist
+
+Hyperscalers weren't built for AI training. They were built for web apps, databases, and general compute. When the AI boom hit, GPU demand exploded and hyperscalers couldn't keep up:
+
+- **Waitlists** — companies waiting months for H100 allocations on AWS/GCP
+- **Price** — hyperscaler GPU pricing is significantly higher than dedicated providers
+- **Overhead** — you're paying for services you don't need (load balancers, CDNs, managed databases) when all you want is raw GPU
+
+Neo-clouds fill that gap. We provide **dedicated GPU infrastructure** optimized specifically for AI workloads — training, fine-tuning, and inference.
+
+### Our Differentiator: Software + Hardware
+
+Most neo-clouds are just GPU rental companies. You get bare metal, you figure out the rest.
+
+We're different because we own **both sides**:
+
+- **Hardware layer (Voltage Park)** — we own and operate the physical GPU infrastructure across multiple data centers
+- **Software layer (Lightning AI)** — we provide the platform that makes that hardware useful: managed clusters, studios, inference, deployment
+
+This is the "from GPU to endpoint" pitch. A customer can go from raw H100s to a deployed AI product without leaving our ecosystem.
+
+**Why this matters commercially:**
+
+- **Higher margins** — software on top of hardware means we're not competing purely on GPU price
+- **Stickier customers** — once they're using our platform, switching costs are high
+- **Broader TAM** — we can serve everyone from individual developers (PLG, free tier) to Fortune 100 enterprises (reserved instances, managed K8s)
+
+### How Enterprise AI Actually Works
+
+Enterprise companies don't put all their AI workloads in one place. They use a **hybrid compute** model:
+
+- **Hyperscaler** for non-GPU workloads, data lakes, existing infra
+- **Neo-cloud (us)** for GPU-heavy training and inference at better price/performance
+- **On-prem** for sensitive data, regulatory requirements, or where they already have hardware
+
+Our platform is **cloud-agnostic** — it can orchestrate workloads across all three. That's the strategic vision. The customer uses Lightning AI as the control plane, and we handle where the compute actually runs.
+
+### The Competition
+
+| Competitor | What They Offer | How We're Different |
+|-----------|----------------|-------------------|
+| **CoreWeave** | GPU cloud, K8s-native | No integrated developer platform, pure infra play |
+| **Lambda** | GPU cloud + workstations | Smaller scale, less enterprise focus |
+| **Nebius** | GPU cloud (Yandex spin-off) | No unified software platform |
+| **Together AI** | Inference + fine-tuning API | No bare-metal, no own hardware |
+| **AWS/GCP/Azure** | Everything | GPU-expensive, not purpose-built for AI |
+
+Our moat is that nobody else has the full stack: own hardware + own data centers + developer platform + managed services + inference. That's what the merger created.
+
+## Products & Services
+
+We sell AI compute and tooling across different consumption models. Understanding what each product is helps you route customer questions correctly.
 
 ### Lightning AI Studios (PLG)
-Cloud-based platform for building and deploying AI products at scale. Coding on the cloud, multi-node training, distributed data prep, hosting AI web apps. Four tiers: Free, Pro, Teams, Enterprise. This is the product-led growth (PLG) side — users sign up at lightning.ai and start building.
 
-### Reserved Instances
-Contract-based dedicated node allocations with SLAs and a Technical Account Manager (TAM) for onboarding. This is the enterprise sales motion — big customers who need guaranteed capacity.
+The self-service platform at **lightning.ai**. Users sign up, get a cloud environment, and start building.
 
-### VPOD (VP On-Demand)
-Legacy self-service bare-metal GPU rentals via web dashboard and API. Stripe billing. **Being rolled into the Lightning platform** — you'll still see references to it but it's merging into the unified product.
+**What it includes:**
+
+- **Studios** — cloud-based dev environments with GPU access. Think VS Code in the browser with a GPU attached
+- **Multi-node training** — scale training across multiple GPUs/nodes without managing infrastructure
+- **LitData** — distributed data preparation at scale
+- **Lightning Inference** — deploy models as API endpoints
+- **App hosting** — deploy and share AI web applications
+
+**Pricing tiers:**
+
+| Tier | Credits | Who It's For |
+|------|---------|-------------|
+| **Free** | 15 credits/month (~80 GPU hours) | Individual developers, students, hobbyists |
+| **Pro** | 40 credits/month | Professional developers, researchers |
+| **Teams** | Per-seat pricing | Small-to-mid teams collaborating on projects |
+| **Enterprise** | Custom | Large organizations with compliance/security needs |
+
+This is the **product-led growth (PLG)** side of the business — high volume, lower touch, users self-serve. PLG support tickets come through **Crisp**.
+
+### Reserved Instances (Enterprise)
+
+Contract-based dedicated node allocations for large customers. This is the **enterprise sales motion**.
+
+**What they get:**
+
+- Dedicated GPU nodes (not shared)
+- SLAs on uptime and support response
+- Technical Account Manager (TAM) for onboarding and ongoing support
+- Custom networking and storage configurations
+- Priority maintenance scheduling
+
+**Key customers on reserved instances:** Cisco, Black Forest Labs, Cursor, and others. These are multi-month or multi-year contracts. When these customers have issues, they expect fast responses — they're paying for it.
 
 ### Managed Kubernetes (MK8s)
-Managed K8s clusters running on GPU nodes. Handles cluster lifecycle management so customers don't have to.
+
+Managed K8s clusters running on our GPU nodes. We handle the cluster lifecycle — provisioning, scaling, upgrades, monitoring — so the customer focuses on their workloads.
+
+**Why customers want this:** Running Kubernetes on GPU infrastructure is painful. GPU scheduling, driver management, fabric manager, InfiniBand CNI plugins — it's a lot. We abstract that away.
 
 ### Managed Slurm
-HPC clusters provisioned on top of MK8s for traditional high-performance computing workloads.
 
-### Harbor
-The "VP Cloud" platform — API-driven provisioning at cloud.voltagepark.com. Another piece being unified under Lightning.
+HPC-style clusters for customers who prefer traditional job scheduling over Kubernetes. Provisioned on top of MK8s infrastructure. Common in research and academic settings.
+
+### VPOD (VP On-Demand) — Legacy
+
+Self-service bare-metal GPU rentals via web dashboard and API with Stripe billing. **Being rolled into the Lightning platform** — you'll still see references to it in tickets and docs, but it's merging into the unified product.
+
+### Harbor — Legacy
+
+The original "VP Cloud" platform for API-driven provisioning at cloud.voltagepark.com. Also being unified under Lightning.
+
+### AI Factory
+
+Newer offering for dedicated GPU factory deployments at scale. Behind feature flags currently — you'll hear about it but it's not fully GA yet.
 
 ## Infrastructure
 
