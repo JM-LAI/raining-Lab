@@ -17,11 +17,11 @@ Here's what the queue actually looks like:
 
 | Category | % of Tickets | CX Action |
 |----------|-------------|-----------|
-| **Automated Alerts (GPU temp)** | ~60% | Contact customer, confirm maintenance window, open Jira for DC Ops |
-| **GPU Thermal Throttle (TT)** | ~15% | Contact customer, confirm maintenance window, open Jira for DC Ops |
+| **Automated Alerts (GPU temp)** | ~60% | Contact customer, confirm maintenance window, Jira in Operations project → DC Ops |
+| **GPU Thermal Throttle (TT)** | ~15% | Contact customer, confirm maintenance window, Jira in Operations project → DC Ops |
 | **Software/Image Issues** | ~8% | Diagnose first (sshv, check drivers), escalate to infra-ops if needed |
-| **Downtime/Maintenance** | ~5% | Coordinate with customer, open Jira for DC Ops |
-| **Node Unreachable** | ~4% | Contact customer, coordinate, open Jira for DC Ops |
+| **Downtime/Maintenance** | ~5% | Coordinate with customer, Jira in Operations project → DC Ops |
+| **Node Unreachable** | ~4% | Contact customer, coordinate, Jira in Operations project → DC Ops |
 | **User Management** | ~3% | Handle directly (sshv, key additions) |
 | **Billing/Onboarding** | ~3% | Handle directly |
 | **Network/IB** | ~2% | Diagnose, escalate with context |
@@ -46,7 +46,7 @@ DFW1 - gpu040360 - Northstar AI - GPU26 - TT
 
 1. Contact the customer
 2. Confirm a maintenance window that works for them
-3. Once confirmed, open a Jira ticket for DC Ops with the maintenance window details
+3. Once confirmed, create a Jira ticket in the **Operations project** (via Plain) and assign it to DC Ops with the maintenance window details
 4. Update the Plain ticket with the Jira link
 5. After GPU replacement: run DCGMI r3+ via node-toolkit to validate the new hardware before returning the node
 
@@ -152,7 +152,7 @@ Real examples:
 **Your workflow:**
 
 1. For customer-requested downtime: confirm details and window
-2. For "ready for maintenance" tickets: open Jira for DC Ops
+2. For "ready for maintenance" tickets: Jira in Operations project, assign to DC Ops
 3. Track completion and update the customer
 
 ### Node Down / Unreachable

@@ -1,11 +1,11 @@
 - question: "A ticket lands: 'ALERT: [idrac-6vb0fz3] [sensor] [System Board GPU22] A GPU is over 81°.' What do you do?"
   options:
-    - "Contact the customer, confirm a maintenance window, then open a Jira for DC Ops"
+    - "Contact the customer, confirm a maintenance window, then create a Jira in the Operations project assigned to DC Ops"
     - "Nothing — this is an automated alert, DC Ops handles it"
     - "Escalate directly to the security team"
     - "Reboot the node remotely"
   correct: 0
-  explanation: "GPU temp alerts are CX's most common ticket. Your job is to contact the customer, get a maintenance window confirmed, then open Jira for DC Ops to action."
+  explanation: "GPU temp alerts are CX's most common ticket. Your job is to contact the customer, get a maintenance window confirmed, then create a Jira in the Operations project assigned to DC Ops."
 
 - question: "A customer reports: 'My training job keeps crashing with NCCL errors on node gpu040190.' You check Plain and see a TT ticket on that node. What's your response?"
   options:
@@ -28,11 +28,11 @@
 - question: "You get a ticket: 'DFW1 - gpu040360 - GPU26 - TT'. What's the CX workflow?"
   options:
     - "Close it — thermal throttle is DC Ops only"
-    - "Contact the customer, confirm a maintenance window, then open Jira for DC Ops"
+    - "Contact the customer, confirm a maintenance window, then Jira in Operations project → DC Ops"
     - "Immediately reboot the node"
     - "Email the DC team directly"
   correct: 1
-  explanation: "TT tickets follow the same flow as temp alerts: contact customer → confirm maintenance window → open Jira for DC Ops."
+  explanation: "TT tickets follow the same flow as temp alerts: contact customer → confirm maintenance window → Jira in Operations project assigned to DC Ops."
 
 - question: "A ticket reads: 'Quick SEO Review for Your Website'. What do you do?"
   options:
@@ -73,11 +73,11 @@
 - question: "A ticket says 'Node g0726 ready for maintenance'. What does CX do?"
   options:
     - "Nothing — it's an internal ticket"
-    - "Open a Jira ticket for DC Ops to action the maintenance"
+    - "Create a Jira in the Operations project, assign to DC Ops"
     - "Contact the customer to schedule the maintenance"
     - "SSH into the node and start the maintenance"
   correct: 1
-  explanation: "When a node is confirmed ready, CX opens Jira so DC Ops can execute. The customer coordination was already done."
+  explanation: "When a node is confirmed ready, CX creates a Jira in the Operations project assigned to DC Ops. The customer coordination was already done."
 
 - question: "What's the most important thing to include when escalating a customer ticket?"
   options:
