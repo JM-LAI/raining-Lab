@@ -160,6 +160,8 @@ HPC-style clusters for customers who prefer traditional job scheduling over Kube
 
 Self-service bare-metal GPU rentals via web dashboard and API with Stripe billing. **Being rolled into the Lightning platform** — you'll still see references to it in tickets and docs, but it's merging into the unified product.
 
+> **⚠ Internal only (as of April 2025):** Customers have NOT been informed about the VPOD migration. Do NOT mention this to customers — treat it as internal knowledge until officially communicated.
+
 ### Harbor — Legacy
 
 The original "VP Cloud" platform for API-driven provisioning at cloud.voltagepark.com. Also being unified under Lightning.
@@ -170,43 +172,9 @@ Newer offering for dedicated GPU factory deployments at scale. Behind feature fl
 
 ## Infrastructure
 
-### GPU Servers
+We run thousands of **H100 and B200 GPUs** across 7+ data centers in the US. Our primary server is the Dell PowerEdge XE9680 — 8 GPUs per node connected via NVLink at 900 GB/s. Nodes talk to each other over **InfiniBand NDR** (400 Gb/s with RDMA). Shared storage runs on **VAST** and **WekaFS** parallel filesystems. Everything is liquid-cooled because a single GPU rack pulls 80-100 kW.
 
-| Model | GPUs | Notes |
-|-------|------|-------|
-| **Dell PowerEdge XE9680** | 8x H100 SXM | Primary fleet |
-| **Dell PowerEdge XE9780** | 8x B200 SXM | Newer builds |
-| **Nvidia DGX H100** | 8x H100 | Select sites (Lambda-managed) |
-
-### Networking
-- **InfiniBand NDR** fabric (Nvidia ConnectX-7 adapters, QM9700 switches)
-- **Dell Z9432F / Z9864F** Ethernet switches (SONiC OS)
-- **VAST** shared NFS storage
-- **Tailscale** VPN for secure access
-
-### Data Centers
-
-| Code | Location | Colo Provider |
-|------|----------|---------------|
-| **SEA1** | Puyallup, WA | Centeris |
-| **SEA2** | Quincy, WA | H5 Data Centers |
-| **IAD1** | Sterling, VA | CyrusOne |
-| **DFW1** | Allen, TX | CenterSquare |
-| **DFW2** | Fort Worth, TX | CenterSquare |
-| **SLC1/SLC2** | Bluffdale, UT | Lambda/DataBank |
-| **ORD1** | Lisle, IL | CenterSquare |
-
-### Management Tools
-
-| Tool | What It Does |
-|------|-------------|
-| **Canonical MaaS** | Bare-metal provisioning, DHCP/PXE |
-| **Dell iDRAC** | BMC / out-of-band server management |
-| **Observium** | Host and device monitoring |
-| **UFM** | InfiniBand fabric management |
-| **Rootly** | Incident paging and management |
-| **Asset Panda** | Hardware inventory tracking |
-| **Metabase** | Usage reporting and analytics |
+For the full breakdown — node internals, rack layout, power & cooling, networking, storage, and the software stack — see the next module: **Infrastructure Fundamentals**.
 
 ## Teams That Matter to CX
 

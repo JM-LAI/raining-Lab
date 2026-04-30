@@ -52,15 +52,6 @@
   correct: 1
   explanation: "When AI demand exploded, hyperscalers couldn't keep up — long H100 waitlists, expensive GPU pricing, and too much overhead for pure AI workloads."
 
-- question: "What is the primary GPU server model in our fleet?"
-  options:
-    - "Nvidia DGX A100"
-    - "Dell PowerEdge XE9680 with 8x H100 SXM GPUs"
-    - "Supermicro SYS-821GE with 4x A100 GPUs"
-    - "Dell PowerEdge R750 with 2x H100 GPUs"
-  correct: 1
-  explanation: "The Dell PowerEdge XE9680 with 8x H100 SXM GPUs per node is the primary fleet. Newer builds use the XE9780 with B200s."
-
 - question: "What does Lightning AI Studios provide to PLG users?"
   options:
     - "Just raw GPU servers with SSH access"
@@ -104,7 +95,7 @@
     - "It's being rolled into the Lightning platform"
     - "It's being sold to another company"
   correct: 2
-  explanation: "VPOD is legacy self-service bare-metal. It's being merged into the unified Lightning platform."
+  explanation: "VPOD is legacy self-service bare-metal. It's being merged into the unified Lightning platform. IMPORTANT: As of April 2025, customers have NOT been informed of this change. Do NOT mention the VPOD migration or sunset to customers — this is internal knowledge only."
 
 - question: "Which team handles physical GPU replacements and hardware maintenance?"
   options:

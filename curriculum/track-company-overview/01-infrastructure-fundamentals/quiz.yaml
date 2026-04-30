@@ -1,0 +1,125 @@
+- question: "What is the primary GPU server model in our fleet?"
+  options:
+    - "Nvidia DGX A100"
+    - "Dell PowerEdge XE9680 with 8x H100 SXM GPUs"
+    - "Supermicro SYS-821GE with 4x A100 GPUs"
+    - "Dell PowerEdge R750 with 2x H100 GPUs"
+  correct: 1
+  explanation: "The Dell PowerEdge XE9680 with 8x H100 SXM GPUs per node is the primary fleet. Newer builds use the XE9780 with B200s."
+
+- question: "Why do our GPU servers use SXM form factor H100s instead of cheaper PCIe H100s?"
+  options:
+    - "SXM uses less power"
+    - "SXM enables NVLink — 900 GB/s direct GPU-to-GPU connections that bypass the CPU entirely"
+    - "SXM cards are physically smaller"
+    - "PCIe H100s don't support CUDA"
+  correct: 1
+  explanation: "SXM form factor enables NVLink via NVSwitch, giving 900 GB/s bidirectional GPU-to-GPU bandwidth. PCIe cards can't do this — they'd bottleneck through the CPU."
+
+- question: "A single GPU rack in our data center draws how much power compared to a normal office server rack?"
+  options:
+    - "About the same (5-10 kW)"
+    - "2-3x more"
+    - "10-20x more (80-100 kW vs 5-10 kW)"
+    - "100x more"
+  correct: 2
+  explanation: "Our GPU racks draw 80-100 kW vs 5-10 kW for a typical office rack. This extreme power density drives every design decision — cooling, electrical infrastructure, building location."
+
+- question: "Why does our cluster use InfiniBand instead of regular Ethernet?"
+  options:
+    - "Ethernet doesn't work with GPUs"
+    - "InfiniBand is 400 Gb/s with RDMA (1-2 microsecond latency) vs Ethernet's 50-100 microsecond latency — critical when 1,024 GPUs synchronize gradients thousands of times per second"
+    - "InfiniBand is cheaper to install"
+    - "Ethernet can't carry more than 1 Gb/s"
+  correct: 1
+  explanation: "InfiniBand NDR runs at 400 Gb/s with RDMA that bypasses both CPUs. The 50-100x latency reduction vs Ethernet/TCP is what makes distributed training scale to 1,024+ GPUs."
+
+- question: "What is RDMA and why does it matter for AI training?"
+  options:
+    - "A type of GPU memory"
+    - "Remote Direct Memory Access — one GPU reads/writes another GPU's memory directly without CPU involvement, dropping latency to ~1 microsecond"
+    - "A storage protocol for NVMe SSDs"
+    - "A monitoring tool for InfiniBand health"
+  correct: 1
+  explanation: "RDMA lets network cards directly access remote memory, completely bypassing CPUs on both ends. This 50-100x latency reduction is essential for gradient synchronization in distributed training."
+
+- question: "What is a BMC/iDRAC and why is it critical for managing thousands of servers?"
+  options:
+    - "A GPU diagnostic tool"
+    - "A tiny always-on computer on the motherboard that lets engineers remotely power cycle, see console output, and monitor temps — even when the main server is dead"
+    - "A network switch management protocol"
+    - "A backup power system"
+  correct: 1
+  explanation: "The BMC (iDRAC on Dell servers) is always powered with its own network port. It's how you manage servers remotely without physically touching them — critical at scale."
+
+- question: "What does DCGM monitor?"
+  options:
+    - "Network switches and routers"
+    - "Server power consumption only"
+    - "GPU temps, utilization, XID errors, and NVLink health"
+    - "Customer billing usage"
+  correct: 2
+  explanation: "DCGM (Data Center GPU Manager) monitors everything GPU-related: temperatures, utilization, error codes (XID), and NVLink health. It feeds into Prometheus and Grafana dashboards."
+
+- question: "What does XID 79 indicate?"
+  options:
+    - "Normal GPU operation"
+    - "GPU fell off the PCIe bus — hardware failure"
+    - "Driver version mismatch"
+    - "Cooling fan speed warning"
+  correct: 1
+  explanation: "XID 79 means the GPU fell off the bus. It's a hardware failure that usually requires GPU replacement."
+
+- question: "Why is NVLink important for distributed training jobs?"
+  options:
+    - "It provides internet access to the GPUs"
+    - "It allows all 8 GPUs in a node to share gradients at 900 GB/s without going through the CPU"
+    - "It's required for CUDA to work"
+    - "It connects GPUs to storage"
+  correct: 1
+  explanation: "NVLink connects all 8 GPUs via NVSwitch at 900 GB/s bidirectional. During training, GPUs constantly exchange gradient updates — if this went through PCIe and the CPU, it would be a massive bottleneck."
+
+- question: "A customer reports 'NCCL errors' during training. What layer is likely the issue?"
+  options:
+    - "Their Python code has a bug"
+    - "The GPU drivers are too old"
+    - "InfiniBand or NVLink — NCCL uses both for gradient synchronization"
+    - "The Slurm scheduler misconfigured their job"
+  correct: 2
+  explanation: "NCCL handles collective communications using NVLink within a node and InfiniBand RDMA between nodes. NCCL errors typically trace back to a networking or interconnect problem."
+
+- question: "What is a UPS and why do GPU data centers need them?"
+  options:
+    - "A delivery service for hardware"
+    - "A battery system that keeps servers running during power flickers — GPU training jobs crash if interrupted even briefly"
+    - "A GPU overclocking tool"
+    - "A network protocol for InfiniBand"
+  correct: 1
+  explanation: "UPS (Uninterruptible Power Supply) switches to battery in under 1ms if grid power dips. Without it, a 50ms flicker would crash every training job in the facility."
+
+- question: "What is PUE and what's our target?"
+  options:
+    - "Processing Unit Efficiency — how fast our GPUs run. Target: 100%"
+    - "Power Usage Effectiveness — total facility power divided by IT equipment power. Target: 1.1-1.2"
+    - "Performance Under Extreme load. Target: 99.9%"
+    - "Power Unit Estimate — how much electricity we buy. Target: under budget"
+  correct: 1
+  explanation: "PUE = total facility power / IT equipment power. Perfect would be 1.0 (impossible). Our target of 1.1-1.2 means only 10-20% of power goes to cooling and overhead."
+
+- question: "What are VAST and WekaFS?"
+  options:
+    - "GPU monitoring tools"
+    - "Parallel filesystems for shared storage across all nodes — datasets and checkpoints live here"
+    - "Customer billing platforms"
+    - "InfiniBand switch vendors"
+  correct: 1
+  explanation: "VAST and WekaFS are parallel filesystems accessible from all nodes simultaneously. Training datasets and model checkpoints (which can be 140GB+ for a 70B model) are stored here."
+
+- question: "Why do thermal throttle (TT) tickets matter so much?"
+  options:
+    - "They just mean the node is using too much power"
+    - "One throttling GPU slows all 8 because NVLink keeps them synchronized — one bad GPU degrades the entire node"
+    - "Thermal throttle only affects the CPU, not GPUs"
+    - "They're automatically resolved by the cooling system"
+  correct: 1
+  explanation: "Because all 8 GPUs are synchronized via NVLink, one GPU thermal throttling causes all of them to slow down. A single bad GPU = entire node performance degradation or training job crash."
