@@ -25,7 +25,17 @@ py_minor() {
 }
 
 # find the best python3 binary (3.9+), preferring newer versions
+# override with PYTHON env var: PYTHON=/path/to/python3 ./start.sh
 find_python() {
+    if [ -n "${PYTHON:-}" ] && [ -x "$PYTHON" ]; then
+        local minor
+        minor=$(py_minor "$PYTHON" 2>/dev/null) || true
+        if [ -n "$minor" ] && [ "$minor" -ge "$MIN_PY_MINOR" ] 2>/dev/null; then
+            echo "$PYTHON"
+            return 0
+        fi
+    fi
+
     local candidates=()
     
     if is_mac; then
@@ -268,17 +278,23 @@ case "${1:-start}" in
             echo ""
             echo -e "${RED}Could not find or install Python 3.${MIN_PY_MINOR}+.${NC}"
             echo ""
-            echo -e "  Ask your IT admin to install Python, or try one of these:"
+            echo -e "  Install Python manually, then run ${CYAN}./start.sh${NC} again:"
             echo -e "  macOS:  ${CYAN}brew install python@3.11${NC}"
+            echo -e "          or download from ${CYAN}https://www.python.org/downloads/${NC}"
             echo -e "  Ubuntu: ${CYAN}sudo apt install python3 python3-venv python3-pip${NC}"
             echo ""
-            echo -e "  If you don't have admin rights, ask a teammate to help"
-            echo -e "  or message #customer-support-plg on Slack."
+            echo -e "  If you installed Python but the lab can't find it, pass the path directly:"
+            echo -e "  ${CYAN}PYTHON=/path/to/python3 ./start.sh${NC}"
+            echo ""
+            echo -e "  To find your Python path: ${CYAN}which python3${NC}"
+            echo ""
+            echo -e "  Still stuck? Message #customer-support-plg on Slack."
             exit 1
         fi
         
         FOUND_VER=$("$PYTHON" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
         echo -e "${GREEN}Using Python ${FOUND_VER}${NC} (${PYTHON})"
+        echo -e "  Path: ${CYAN}${PYTHON}${NC}"
         
         # step 3: install optional support tools (bash 5+, 1password cli, jq, etc.)
         install_support_tools
